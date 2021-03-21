@@ -21,10 +21,16 @@ public class PostUtil {
 //        return post;
 
         Post post = new Post();
-        post.setId("123");
         post.setAuthorId("vin76423");
-        post.setLike(new Like());
-        post.setComment(new Comment());
+        post.setLike(Like.builder()
+                .authorId("123-qwe")
+                .createdAt(LocalDateTime.now())
+                .build());
+        post.setComment(Comment.builder()
+                .authorId("123-qwe")
+                .createdAt(LocalDateTime.now())
+                .massage("some message")
+                .build());
         post.setCreatedAt(LocalDateTime.now());
         post.setTitle("some_title");
         post.setMassage("some_text");

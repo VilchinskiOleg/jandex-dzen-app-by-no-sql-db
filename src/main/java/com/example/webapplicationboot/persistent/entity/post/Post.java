@@ -2,6 +2,7 @@ package com.example.webapplicationboot.persistent.entity.post;
 
 import com.example.webapplicationboot.persistent.entity.post.Comment;
 import com.example.webapplicationboot.persistent.entity.post.Like;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
@@ -12,7 +13,7 @@ import java.util.List;
 
 @Getter
 @Setter
-@Document(collation = "posts")
+@Document(collection = "posts")
 public class Post {
 
     @Id

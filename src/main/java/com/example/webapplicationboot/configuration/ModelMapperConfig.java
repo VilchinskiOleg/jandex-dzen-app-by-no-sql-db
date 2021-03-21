@@ -2,6 +2,7 @@ package com.example.webapplicationboot.configuration;
 
 import com.example.webapplicationboot.domain.mapper.converter.EntityCommentToCommentConverter;
 import com.example.webapplicationboot.domain.mapper.converter.EntityLikeToLikeConverter;
+import com.example.webapplicationboot.domain.mapper.converter.EntityPostToPostConverter;
 import com.example.webapplicationboot.domain.model.post.Comment;
 import com.example.webapplicationboot.domain.model.post.Like;
 import com.example.webapplicationboot.persistent.entity.post.Post;
@@ -24,6 +25,7 @@ public class ModelMapperConfig {
 
     private final EntityCommentToCommentConverter entityCommentToCommentConverter;
     private final EntityLikeToLikeConverter entityLikeToLikeConverter;
+    private final EntityPostToPostConverter entityPostToPostConverter;
 
     @Bean(name = "modelMapper")
     public ModelMapper configurerModelMapper() {
@@ -35,11 +37,14 @@ public class ModelMapperConfig {
 
                     mapper
                             .using(entityLikeToLikeConverter)
-                            .<Like>map(src -> src.getLike(), (dst, var) -> dst.setLike(var));
+                            .map(Post::getLike, com.example.webapplicationboot.domain.model.post.Post::setLike);
                     mapper
                             .using(entityCommentToCommentConverter)
-                            .<Comment>map(src -> src.getComment(), (dst, var) -> dst.setComment(var));
+                            .<Comment>map(Post::getComment, (dst, var) -> dst.setComment(var));
                 });
+
+        modelMapper.addConverter(entityCommentToCommentConverter);
+        modelMapper.addConverter(entityLikeToLikeConverter);
 
         return modelMapper;
     }

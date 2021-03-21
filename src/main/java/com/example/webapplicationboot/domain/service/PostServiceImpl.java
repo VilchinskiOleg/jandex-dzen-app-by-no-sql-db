@@ -6,8 +6,12 @@ import com.example.webapplicationboot.domain.model.post.Post;
 import com.example.webapplicationboot.domain.service.processor.UpdatePostProcessor;
 //import com.example.webapplicationboot.persistent.repopsitory.PostRepository;
 //import com.example.webapplicationboot.persistent.repopsitory.UserRepository;
+import com.example.webapplicationboot.persistent.repository.PostRepository;
+import com.example.webapplicationboot.persistent.repository.UserRepository;
 import com.example.webapplicationboot.util.PostUtil;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.*;
@@ -15,12 +19,12 @@ import java.util.*;
 @Service
 public class PostServiceImpl implements PostService {
 
-//    @Resource
-//    private UserRepository userRepository;
-//    @Resource
-//    private PostRepository postRepository;
     @Resource
-    private ModelMapper modelMapper;
+    private UserRepository userRepository;
+    @Resource
+    private PostRepository postRepository;
+    @Resource
+    private ModelMapper mapper;
     private Map<ProcessType, UpdatePostProcessor> processors = new HashMap();
 
     @Override
@@ -30,8 +34,17 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<Post> getAllPosts() {
-//        Collection<Post> posts = modelMapper.map(postRepository.findAll(), new ArrayList<>(), Post.class);
-        Post post = modelMapper.map(PostUtil.getEmptyEntityPost(), Post.class);
+        var mock = PostUtil.getEmptyEntityPost();
+        postRepository.save(mock);
+
+        //        Collection<Post> posts = modelMapper.map(postRepository.findAll(), new ArrayList<>(), Post.class);
+
+        PageRequest request = PageRequest.of(0,1);
+        var page = postRepository.findAll(request);
+
+        System.out.printf("Number of page: %d \nQuantity items in one page: %d", page.getNumber(), page.getSize());
+
+        Post post = mapper.map(page.get().findAny().orElseThrow(), Post.class);
         return Collections.singletonList(post);
     }
 

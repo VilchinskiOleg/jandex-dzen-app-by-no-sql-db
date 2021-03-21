@@ -2,13 +2,22 @@ package com.example.webapplicationboot.domain.mapper.converter;
 
 import lombok.Getter;
 import org.modelmapper.Converter;
+import org.modelmapper.ModelMapper;
 import org.modelmapper.spi.MappingContext;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 
 
 public abstract class BaseConverter<S, D> implements Converter<S, D> {
 
-//    @Resource
-//    protected SmartModelMapper modelMapper;
+//    protected ModelMapper modelMapper;
+//
+//    @PostConstruct
+//    private void setModelMapper(@Autowired ModelMapper modelMapper) {
+//        this.modelMapper = modelMapper;
+//    }
 
     @Override
     public D convert(MappingContext<S, D> mappingContext) {
