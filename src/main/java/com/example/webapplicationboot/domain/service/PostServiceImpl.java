@@ -1,16 +1,15 @@
 package com.example.webapplicationboot.domain.service;
 
 import static com.example.webapplicationboot.domain.service.processor.UpdatePostProcessor.ProcessType;
+import static java.util.Collections.emptyMap;
+import static java.util.Objects.isNull;
+import static org.springframework.data.domain.PageRequest.of;
 
+import com.example.webapplicationboot.domain.mapper.SmartModelMapper;
 import com.example.webapplicationboot.domain.model.post.Post;
 import com.example.webapplicationboot.domain.service.processor.UpdatePostProcessor;
-//import com.example.webapplicationboot.persistent.repopsitory.PostRepository;
-//import com.example.webapplicationboot.persistent.repopsitory.UserRepository;
 import com.example.webapplicationboot.persistent.repository.PostRepository;
 import com.example.webapplicationboot.persistent.repository.UserRepository;
-import com.example.webapplicationboot.util.PostUtil;
-import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
@@ -24,8 +23,8 @@ public class PostServiceImpl implements PostService {
     @Resource
     private PostRepository postRepository;
     @Resource
-    private ModelMapper mapper;
-    private Map<ProcessType, UpdatePostProcessor> processors = new HashMap();
+    private SmartModelMapper mapper;
+    private final Map<ProcessType, UpdatePostProcessor> processors = emptyMap();
 
     @Override
     public void injectNewProcessor(ProcessType type, UpdatePostProcessor processor) {
@@ -34,18 +33,16 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<Post> getAllPosts() {
-        var mock = PostUtil.getEmptyEntityPost();
-        postRepository.save(mock);
+        var posts = postRepository.findAll();
+        return mapper.map(posts, new ArrayList<>(), Post.class);
+    }
 
-        //        Collection<Post> posts = modelMapper.map(postRepository.findAll(), new ArrayList<>(), Post.class);
-
-        PageRequest request = PageRequest.of(0,1);
+    @Override
+    public List<Post> getPostsPage(int numberPage, int sizePage) {
+        PageRequest request = of(numberPage,sizePage);
         var page = postRepository.findAll(request);
-
-        System.out.printf("Number of page: %d \nQuantity items in one page: %d", page.getNumber(), page.getSize());
-
-        Post post = mapper.map(page.get().findAny().orElseThrow(), Post.class);
-        return Collections.singletonList(post);
+        System.out.printf("Number of page: %d \nQuantity items in one page: %d", page.getNumber(), page.getSize()); // потом сюда поставить логер
+        return mapper.map(page.getContent(), new ArrayList<>(), Post.class);
     }
 
 //    @Override
@@ -73,20 +70,15 @@ public class PostServiceImpl implements PostService {
 //        }
 //        postRepository.save(post);
 //    }
-//
-//    @Override
-//    public void setComment(Comment comment) {
-//        if (comment == null) {
-//            throw new IllegalArgumentException("Comment is null!");
-//        }
-//        commentRepository.save(comment);
-//    }
-//
-//    @Override
-//    public void setLike(Like like) {
-//        if (like == null) {
-//            throw new IllegalArgumentException("Comment is null!");
-//        }
-//        likeRepository.save(like);
-//    }
+
+    @Override
+    public Post updatePost(Post postData, ProcessType processType) {
+        UpdatePostProcessor processor = processors.get(processType);
+        if (isNull(processor)) {
+            throw new RuntimeException("External server error: Such process type doesn't exist");
+        }
+        Post post = processor.process(postData);
+        postRepository.save(mapper.map(post, com.example.webapplicationboot.persistent.entity.post.Post.class));
+        return post;
+    }
 }

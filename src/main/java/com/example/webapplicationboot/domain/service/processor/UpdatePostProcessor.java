@@ -14,6 +14,7 @@ public interface UpdatePostProcessor {
     }
 
     enum ProcessType {
+        UPDATE_POST,
         UPDATE_COMMENT,
         UPDATE_LIKE,
         UPDATE_NAME

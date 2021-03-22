@@ -1,5 +1,6 @@
 package com.example.webapplicationboot.configuration;
 
+import com.example.webapplicationboot.domain.mapper.SmartModelMapper;
 import com.example.webapplicationboot.domain.mapper.converter.EntityCommentToCommentConverter;
 import com.example.webapplicationboot.domain.mapper.converter.EntityLikeToLikeConverter;
 import com.example.webapplicationboot.domain.mapper.converter.EntityPostToPostConverter;
@@ -28,8 +29,8 @@ public class ModelMapperConfig {
     private final EntityPostToPostConverter entityPostToPostConverter;
 
     @Bean(name = "modelMapper")
-    public ModelMapper configurerModelMapper() {
-        ModelMapper modelMapper = new ModelMapper();
+    public SmartModelMapper configurerModelMapper() {
+        SmartModelMapper modelMapper = new SmartModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
         modelMapper.typeMap(Post.class, com.example.webapplicationboot.domain.model.post.Post.class)

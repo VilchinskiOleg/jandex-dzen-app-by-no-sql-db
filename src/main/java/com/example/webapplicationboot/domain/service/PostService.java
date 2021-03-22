@@ -11,9 +11,10 @@ public interface PostService {
     void injectNewProcessor(ProcessType type, UpdatePostProcessor processor);
 
     List<Post> getAllPosts();
+    List<Post> getPostsPage(int numberPage, int sizePage);
 //    Post GetPostById(String id);
 //    Post getPostByTitle(String title);
 //    void createPost(Post post);
-//    void updatePost(Post post, ProcessType processType);
+    Post updatePost(Post postData, ProcessType processType);
 //    void deletePostById(String id);
 }
