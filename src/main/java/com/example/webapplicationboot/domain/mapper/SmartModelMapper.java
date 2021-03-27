@@ -11,9 +11,7 @@ public class SmartModelMapper extends ModelMapper implements SmartMapperLogics {
 
     @Override
     public <E extends Collection<D>, D> E map(Collection<?> sources, E destinations, Class<D> destinationType) {
-        for (Object source : sources) {
-            destinations.add(super.map(source, destinationType));
-        }
+        sources.forEach(source -> destinations.add(super.map(source, destinationType)));
         return destinations;
     }
 }

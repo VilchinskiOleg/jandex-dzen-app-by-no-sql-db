@@ -1,5 +1,7 @@
 package com.example.webapplicationboot.domain.service.processor;
 
+import static com.example.webapplicationboot.domain.service.processor.UpdatePostProcessor.ProcessType.UPDATE_COMMENT;
+
 import com.example.webapplicationboot.domain.model.post.Post;
 import org.springframework.stereotype.Service;
 
@@ -7,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class UpdatePostCommentsProcessor implements UpdatePostProcessor {
     @Override
     public ProcessType getProcessType() {
-        return null;
+        return UPDATE_COMMENT;
     }
 
     @Override

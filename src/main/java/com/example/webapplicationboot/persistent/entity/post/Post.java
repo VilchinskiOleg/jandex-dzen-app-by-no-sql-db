@@ -23,6 +23,6 @@ public class Post {
     private String massage;
     private String authorId;
     private LocalDateTime createdAt;
-    private Like like;
-    private Comment comment;
+    private List<Like> likes;
+    private List<Comment> comments;
 }

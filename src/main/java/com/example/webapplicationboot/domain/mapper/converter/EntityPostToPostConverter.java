@@ -5,6 +5,8 @@ import com.example.webapplicationboot.domain.model.post.Like;
 import com.example.webapplicationboot.persistent.entity.post.Post;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+
 @Component
 public class EntityPostToPostConverter extends BaseConverter<Post, com.example.webapplicationboot.domain.model.post.Post> {
 
@@ -15,11 +17,11 @@ public class EntityPostToPostConverter extends BaseConverter<Post, com.example.w
 
     @Override
     public void convert(Post source, com.example.webapplicationboot.domain.model.post.Post destination) {
-        destination.setComment(new Comment());
+        destination.setComments(modelMapper.map(source.getComments(), new ArrayList<>(), Comment.class));
         destination.setTitle(source.getTitle());
         destination.setMassage(source.getMassage());
         destination.setCreatedAt(source.getCreatedAt());
-        destination.setLike(new Like());
+        destination.setLikes(modelMapper.map(source.getLikes(), new ArrayList<>(), Like.class));
         destination.setAuthorId(source.getAuthorId());
     }
 }

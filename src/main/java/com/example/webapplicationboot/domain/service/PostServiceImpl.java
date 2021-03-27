@@ -24,7 +24,7 @@ public class PostServiceImpl implements PostService {
     private PostRepository postRepository;
     @Resource
     private SmartModelMapper mapper;
-    private final Map<ProcessType, UpdatePostProcessor> processors = emptyMap();
+    private final Map<ProcessType, UpdatePostProcessor> processors = new HashMap<>();
 
     @Override
     public void injectNewProcessor(ProcessType type, UpdatePostProcessor processor) {

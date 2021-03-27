@@ -1,0 +1,33 @@
+
+GET http://localhost:8080/api/post
+
+###
+
+POST http://localhost:8080/api/post
+Content-Type: application/json
+
+{
+  "title": "new-post-first",
+  "message": "some information about ...",
+  "authorId": "vin-76-423",
+  "likes": [
+    {
+      "authorId": "taras-03-08"
+    },
+    {
+      "authorId": "marina-03-08"
+    }
+  ],
+  "comments": [
+    {
+      "massage": "Grate post, man!",
+      "authorId": "taras-03-08"
+    },
+    {
+      "massage": "Note bad, not bead ...",
+      "authorId": "marina-03-08"
+    }
+  ]
+}
+
+###
