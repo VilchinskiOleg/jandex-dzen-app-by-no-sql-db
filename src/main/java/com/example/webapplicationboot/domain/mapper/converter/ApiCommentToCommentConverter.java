@@ -14,6 +14,6 @@ public class ApiCommentToCommentConverter extends BaseConverter<Comment, com.exa
     @Override
     public void convert(Comment source, com.example.webapplicationboot.domain.model.post.Comment destination) {
         destination.setAuthorId(source.getAuthorId());
-        destination.setMassage(source.getMassage());
+        destination.setMessage(source.getMessage());
     }
 }

@@ -19,7 +19,7 @@ public class EntityPostToPostConverter extends BaseConverter<Post, com.example.w
     public void convert(Post source, com.example.webapplicationboot.domain.model.post.Post destination) {
         destination.setComments(mapper.map(source.getComments(), new ArrayList<>(), Comment.class));
         destination.setTitle(source.getTitle());
-        destination.setMassage(source.getMassage());
+        destination.setDescription(source.getDescription());
         destination.setCreatedAt(source.getCreatedAt());
         destination.setLikes(mapper.map(source.getLikes(), new ArrayList<>(), Like.class));
         destination.setAuthorId(source.getAuthorId());

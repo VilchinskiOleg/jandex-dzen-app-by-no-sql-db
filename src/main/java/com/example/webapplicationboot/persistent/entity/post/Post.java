@@ -9,14 +9,14 @@ import java.util.List;
 
 @Getter
 @Setter
-@Document(collection = "posts")
+@Document(collection = "post")
 public class Post {
 
     @Id
     private String id;
 
     private String title;
-    private String massage;
+    private String description;
     private String authorId;
     private LocalDateTime createdAt;
     private List<Like> likes;

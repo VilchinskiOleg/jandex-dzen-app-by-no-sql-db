@@ -15,7 +15,7 @@ public class Post {
 
     private String id;
     private String title;
-    private String massage;
+    private String description;
     private String authorId;
     private LocalDateTime createdAt;
     private List<Like> likes;

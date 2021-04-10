@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 public class Comment {
 
     private String id;
-    private String massage;
+    private String message;
     private String authorId;
     private LocalDateTime createdAt;
 }

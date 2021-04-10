@@ -15,7 +15,7 @@ public class EntityCommentToCommentConverter extends BaseConverter<Comment, com.
     public void convert(Comment source, com.example.webapplicationboot.domain.model.post.Comment destination) {
         destination.setId(source.getId());
         destination.setAuthorId(source.getAuthorId());
-        destination.setMassage(source.getMassage());
+        destination.setMessage(source.getMessage());
         destination.setCreatedAt(source.getCreatedAt());
     }
 }

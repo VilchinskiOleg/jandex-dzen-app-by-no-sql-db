@@ -19,11 +19,11 @@ public class PostUtil {
         post.setComments(singletonList(Comment.builder()
                 .authorId("123-qwe")
                 .createdAt(LocalDateTime.now())
-                .massage("some message")
+                .message("some message")
                 .build()));
         post.setCreatedAt(LocalDateTime.now());
         post.setTitle("some_title");
-        post.setMassage("some_text");
+        post.setDescription("some_text");
         return post;
     }
 }

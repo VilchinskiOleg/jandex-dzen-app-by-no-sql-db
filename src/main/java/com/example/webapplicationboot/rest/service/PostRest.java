@@ -28,7 +28,7 @@ public class PostRest {
         return new PostResponse();
     }
 
-    @PostMapping
+    @PostMapping(path = "/create")
     @ResponseStatus(CREATED)
     public PostResponse createPost(@RequestBody @Valid PostRequest postRequest) {
         var post = mapper.map(postRequest.getPost(), Post.class);

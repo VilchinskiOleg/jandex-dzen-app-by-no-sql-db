@@ -3,14 +3,14 @@ GET http://localhost:8080/api/post
 
 ###
 
-POST http://localhost:8080/api/post
+POST http://localhost:8080/api/post/create
 Content-Type: application/json
 
 {
-"post":
-{
+
+"post": {
   "title": "new-post-first",
-  "message": "some information about ...",
+  "description": "some information about ...",
   "authorId": "vin-76-423",
   "likes": [
     {
@@ -22,15 +22,16 @@ Content-Type: application/json
   ],
   "comments": [
     {
-      "massage": "Grate post, man!",
+      "message": "Grate post, man!",
       "authorId": "taras-03-08"
     },
     {
-      "massage": "Note bad, not bead ...",
+      "message": "Note bad, not bead ...",
       "authorId": "marina-03-08"
     }
   ]
 }
+
 }
 
 ###

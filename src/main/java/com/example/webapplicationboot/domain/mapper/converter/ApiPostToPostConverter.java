@@ -17,7 +17,7 @@ public class ApiPostToPostConverter extends BaseConverter<Post, com.example.weba
     @Override
     public void convert(Post source, com.example.webapplicationboot.domain.model.post.Post destination) {
         destination.setTitle(source.getTitle());
-        destination.setMassage(source.getMassage());
+        destination.setDescription(source.getDescription());
         destination.setAuthorId(source.getAuthorId());
         destination.setComments(mapper.map(source.getComments(), new ArrayList<>(), Comment.class));
         destination.setLikes(mapper.map(source.getLikes(), new ArrayList<>(), Like.class));
