@@ -4,7 +4,10 @@ import com.example.webapplicationboot.domain.model.PostSearchParams;
 import com.example.webapplicationboot.persistent.entity.post.Post;
 import org.springframework.data.domain.Page;
 
-public interface PostCriteriaRepository {
+public class PostCriteriaRepositoryImpl implements PostCriteriaRepository {
 
-    Page<Post> findPostBySearchParams(PostSearchParams params);
+    @Override
+    public Page<Post> findPostBySearchParams(PostSearchParams params) {
+        return null;
+    }
 }

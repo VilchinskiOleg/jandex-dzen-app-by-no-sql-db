@@ -19,7 +19,7 @@ public class ModelMapperConfig {
         SmartModelMapper mapper = new SmartModelMapper();
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         converters.forEach(converter -> {
-            converter.setModelMapper(mapper);
+            converter.setMapper(mapper);
             mapper.addConverter(converter);
         });
         return mapper;

@@ -1,8 +1,7 @@
-package com.example.webapplicationboot.domain.model.post;
+package com.example.webapplicationboot.rest.model.post;
 
 import lombok.Getter;
 import lombok.Setter;
-
 import java.time.LocalDateTime;
 
 @Getter

@@ -8,5 +8,5 @@ import lombok.Setter;
 @Setter
 public class PostResponse extends BaseResponse {
 
-    private String message;
+    private Post post;
 }

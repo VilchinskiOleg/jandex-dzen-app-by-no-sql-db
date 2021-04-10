@@ -10,7 +10,7 @@ import org.modelmapper.spi.MappingContext;
 @BppMarker
 public abstract class BaseConverter<S, D> implements Converter<S, D> {
 
-    protected SmartModelMapper modelMapper;
+    protected SmartModelMapper mapper;
 
     @Override
     public D convert(MappingContext<S, D> mappingContext) {

@@ -1,7 +1,6 @@
 package com.example.webapplicationboot.domain.service;
 
 import static com.example.webapplicationboot.domain.service.processor.UpdatePostProcessor.ProcessType;
-import static java.util.Collections.emptyMap;
 import static java.util.Objects.isNull;
 import static org.springframework.data.domain.PageRequest.of;
 
@@ -10,12 +9,14 @@ import com.example.webapplicationboot.domain.model.post.Post;
 import com.example.webapplicationboot.domain.service.processor.UpdatePostProcessor;
 import com.example.webapplicationboot.persistent.repository.PostRepository;
 import com.example.webapplicationboot.persistent.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.*;
 
 @Service
+@Slf4j
 public class PostServiceImpl implements PostService {
 
     @Resource
@@ -34,6 +35,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<Post> getAllPosts() {
         var posts = postRepository.findAll();
+        log.info("Got list of posts from db");
         return mapper.map(posts, new ArrayList<>(), Post.class);
     }
 
@@ -41,7 +43,8 @@ public class PostServiceImpl implements PostService {
     public List<Post> getPostsPage(int numberPage, int sizePage) {
         PageRequest request = of(numberPage,sizePage);
         var page = postRepository.findAll(request);
-        System.out.printf("Number of page: %d \nQuantity items in one page: %d", page.getNumber(), page.getSize()); // потом сюда поставить логер
+        log.info("Got page of posts from db");
+        log.info("Number of page: {}. Quantity items in one page: {}", page.getNumber(), page.getSize());
         return mapper.map(page.getContent(), new ArrayList<>(), Post.class);
     }
 
@@ -63,22 +66,34 @@ public class PostServiceImpl implements PostService {
 //        return postHandler(post);
 //    }
 //
-//    @Override
-//    public void createPost(Post post) {
-//        if (post == null) {
-//            throw new IllegalArgumentException("Post is null!");
-//        }
-//        postRepository.save(post);
-//    }
+    @Override
+    public Post createPost(Post postData) {
+        checkPostIsValid(postData);
+        var post = mapper.map(postData, com.example.webapplicationboot.persistent.entity.post.Post.class);
+        log.info("Saved post to db");
+        return mapper.map(postRepository.save(post), Post.class);
+    }
 
     @Override
     public Post updatePost(Post postData, ProcessType processType) {
         UpdatePostProcessor processor = processors.get(processType);
+        checkProcessorIsValid(processor);
+        var post = mapper.map(processor.process(postData), com.example.webapplicationboot.persistent.entity.post.Post.class);
+        log.info("Post was updated");
+        return mapper.map(postRepository.save(post), Post.class);
+    }
+
+    private void checkProcessorIsValid(UpdatePostProcessor processor) {
         if (isNull(processor)) {
+            log.error("Such process type doesn't exist");
             throw new RuntimeException("External server error: Such process type doesn't exist");
         }
-        Post post = processor.process(postData);
-        postRepository.save(mapper.map(post, com.example.webapplicationboot.persistent.entity.post.Post.class));
-        return post;
+    }
+
+    private void checkPostIsValid(Post post) {
+        if (isNull(post)) {
+            log.error("Post is null");
+            throw new IllegalArgumentException("External server error: Post is null");
+        }
     }
 }

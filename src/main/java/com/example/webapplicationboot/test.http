@@ -7,6 +7,8 @@ POST http://localhost:8080/api/post
 Content-Type: application/json
 
 {
+"post":
+{
   "title": "new-post-first",
   "message": "some information about ...",
   "authorId": "vin-76-423",
@@ -28,6 +30,7 @@ Content-Type: application/json
       "authorId": "marina-03-08"
     }
   ]
+}
 }
 
 ###

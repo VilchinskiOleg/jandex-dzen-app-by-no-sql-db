@@ -39,7 +39,7 @@ public class ModelMapperBeanPostProcessor implements BeanPostProcessor {
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
         if (processBeanNames.contains(beanName)) {
-            ((BaseConverter<?, ?>) bean).setModelMapper(mapper);
+            ((BaseConverter<?, ?>) bean).setMapper(mapper);
             System.out.printf("Added mapper to bean with name \"%s\"\n", beanName);
         }
         return bean;

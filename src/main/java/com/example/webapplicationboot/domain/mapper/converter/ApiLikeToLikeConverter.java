@@ -1,10 +1,10 @@
 package com.example.webapplicationboot.domain.mapper.converter;
 
-import com.example.webapplicationboot.persistent.entity.post.Like;
+import com.example.webapplicationboot.rest.model.post.Like;
 import org.springframework.stereotype.Component;
 
 @Component
-public class EntityLikeToLikeConverter extends BaseConverter<Like, com.example.webapplicationboot.domain.model.post.Like> {
+public class ApiLikeToLikeConverter extends BaseConverter<Like, com.example.webapplicationboot.domain.model.post.Like> {
 
     @Override
     protected com.example.webapplicationboot.domain.model.post.Like getDestination() {
@@ -13,8 +13,6 @@ public class EntityLikeToLikeConverter extends BaseConverter<Like, com.example.w
 
     @Override
     public void convert(Like source, com.example.webapplicationboot.domain.model.post.Like destination) {
-        destination.setId(source.getId());
-        destination.setCreatedAt(source.getCreatedAt());
         destination.setAuthorId(source.getAuthorId());
     }
 }

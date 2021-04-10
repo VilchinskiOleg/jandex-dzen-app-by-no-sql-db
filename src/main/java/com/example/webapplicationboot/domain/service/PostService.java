@@ -14,7 +14,7 @@ public interface PostService {
     List<Post> getPostsPage(int numberPage, int sizePage);
 //    Post GetPostById(String id);
 //    Post getPostByTitle(String title);
-//    void createPost(Post post);
+    Post createPost(Post post);
     Post updatePost(Post postData, ProcessType processType);
 //    void deletePostById(String id);
 }
